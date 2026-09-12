@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /poisk/
+Disallow: /moe/
+Disallow: /api/
+
+Sitemap: https://kodeksdetstva.ru/sitemap.xml
