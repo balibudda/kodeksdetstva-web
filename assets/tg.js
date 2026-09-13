@@ -3,7 +3,23 @@
 // и как мини-приложение; обновляется автоматически при каждом деплое.
 (function () {
   var tg = window.Telegram && window.Telegram.WebApp
-  if (!tg || !tg.initData) return // не в Telegram — выходим
+  if (!tg) return // скрипт telegram-web-app.js не подгружен — точно не в Telegram
+
+  // ВАЖНО: не проверяем tg.initData как признак «мы в Telegram» — Telegram
+  // кладёт метку tgWebApp* в адрес только на самой первой открытой странице
+  // и сам же подчищает её оттуда при инициализации; после нажатия «Обновить»
+  // (location.reload()) initData на этот раз пустое, хотя мы всё ещё внутри
+  // Telegram. Раньше это тихо пропускало tg.ready()/expand()/
+  // disableVerticalSwipes() при каждом обновлении страницы — Telegram
+  // возвращал свои жесты (сворачивание/pull-to-refresh) поверх страницы,
+  // из-за чего меню переставало реагировать на нажатия. Используем тот же
+  // sessionStorage-флаг, что и build.mjs при решении, грузить ли сам скрипт.
+  var inTg = /tgWebApp/.test(location.hash) || /tgWebApp/.test(location.search)
+  try {
+    if (inTg) sessionStorage.setItem('kd_tg', '1')
+    else inTg = sessionStorage.getItem('kd_tg') === '1'
+  } catch (e) {}
+  if (!inTg) return
 
   document.documentElement.setAttribute('data-tg', '1')
 
