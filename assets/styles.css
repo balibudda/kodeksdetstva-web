@@ -242,6 +242,7 @@ h2 { font-size: calc(19px * var(--fs, 1)); margin: 24px 0 10px; overflow-wrap: b
   display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
   justify-content: center;
 }
+.cookie-bar[hidden] { display: none; }
 .cookie-bar p { margin: 0; font-size: calc(13.5px * var(--fs, 1)); color: var(--ink-soft); max-width: 680px; flex: 1 1 320px; }
 .cookie-bar .cookie-actions { display: flex; gap: 8px; flex: 0 0 auto; }
 .cookie-bar .btn { padding: 9px 16px; font-size: calc(14px * var(--fs, 1)); }
